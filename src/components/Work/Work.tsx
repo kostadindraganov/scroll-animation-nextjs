@@ -56,7 +56,7 @@ export default function Work() {
 
   return (
     <section className={styles.work} ref={workContainerRef}>
-      {projects.reduce<JSX.Element[]>((acc, project, index) => {
+      {projects.reduce<React.ReactElement[]>((acc, project, index) => {
         if (index % 2 === 0) {
           const leftProject = projects[index];
           const rightProject = projects[index + 1];
