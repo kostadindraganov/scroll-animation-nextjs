@@ -2,16 +2,17 @@
   padding: 4rem 2rem;
   display: flex;
   flex-direction: column;
-  gap: 3rem;
-  max-width: 1200px;
+  gap: 4rem;
+  max-width: 1400px;
   margin: 0 auto;
 }
 
 .row {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 3rem;
+  gap: 4rem;
   align-items: center;
+  justify-items: center;
 }
 
 @media (max-width: 768px) {
