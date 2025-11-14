@@ -63,6 +63,7 @@
 }
 
 .caption {
+  position: absolute;
   height: var(--btn-size);
   box-sizing: border-box;
   overflow: hidden;
@@ -81,11 +82,15 @@
 }
 
 .captionLeft {
+  bottom: 0;
+  left: 0;
   width: calc(var(--btn-size) + var(--_x-left));
   translate: calc(-1 * var(--btn-size)/2) calc(var(--btn-size)/2);
 }
 
 .captionRight {
+  bottom: 0;
+  right: 0;
   width: calc(var(--btn-size) + var(--_x-right));
   translate: calc(var(--btn-size)/2) calc(var(--btn-size)/2);
 }
