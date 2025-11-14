@@ -1,20 +1,19 @@
 "use client";
+
 import { useRef } from "react";
-
-import { projects } from "./project.js";
-
+import { projects, type Project } from "./project";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 
 export default function Work() {
-  const workContainerRef = useRef(null);
+  const workContainerRef = useRef<HTMLElement>(null);
 
   useGSAP(
     () => {
       gsap.registerPlugin(ScrollTrigger);
 
-      const createWorkItem = (project) => {
+      const createWorkItem = (project: Project): HTMLDivElement => {
         const workItem = document.createElement("div");
         workItem.className = "work-item";
         workItem.innerHTML = `
@@ -32,6 +31,8 @@ export default function Work() {
       };
 
       const workContainer = workContainerRef.current;
+
+      if (!workContainer) return;
 
       workContainer.innerHTML = "";
 
@@ -84,9 +85,5 @@ export default function Work() {
     { scope: workContainerRef }
   );
 
-  return (
-    <>
-      <section className="work" ref={workContainerRef}></section>
-    </>
-  );
+  return <section className="work" ref={workContainerRef}></section>;
 }
