@@ -1,4 +1,10 @@
-@property --_x {
+@property --_x-left {
+  syntax: "<length>";
+  inherits: true;
+  initial-value: 0px;
+}
+
+@property --_x-right {
   syntax: "<length>";
   inherits: true;
   initial-value: 0px;
@@ -7,26 +13,24 @@
 .card {
   --w: 100%;
   --r: 0.5em;
+  --btn-size: 2.5em;
 
   display: grid;
-  place-items: end end;
-  transition: --_x 0.5s;
-  cursor: pointer;
+  place-items: center;
   margin: 0;
   position: relative;
   max-width: 600px;
-}
-
-.card.alt {
-  place-items: end start;
+  transition: --_x-left 0.5s, --_x-right 0.5s;
 }
 
 .card > * {
   grid-area: 1/1;
 }
 
-.card:hover {
-  --_x: calc(var(--w) - 3*var(--r) - 12em);
+.button {
+  z-index: 10;
+  text-decoration: none;
+  display: contents;
 }
 
 .image {
@@ -35,63 +39,63 @@
   border-radius: var(--r);
   object-fit: cover;
   --_m: /calc(2*var(--r)) calc(2*var(--r)) radial-gradient(#000 69%, #0000 72%);
-  --_g: conic-gradient(from 90deg at calc(100% - var(--r)) calc(100% - var(--r)), #0000 25%, #000 0);
-  --_d: (3.5em + var(--r));
-  mask:
-    calc(100% - var(--_d) - var(--_x)) 100% var(--_m),
-    100% calc(100% - var(--_d)) var(--_m),
-    radial-gradient(1.75em at 100% 100%, #0000 99%, #000 calc(100% + 1px))
-      calc(-1*var(--r) - var(--_x)) calc(-1*var(--r)),
-    var(--_g) calc(-1*var(--_d) - var(--_x)) 0,
-    var(--_g) 0 calc(-1*var(--_d));
-  mask-repeat: no-repeat;
-}
+  --_g-right: conic-gradient(from 90deg at calc(100% - var(--r)) calc(100% - var(--r)), #0000 25%, #000 0);
+  --_g-left: conic-gradient(from 180deg at var(--r) calc(100% - var(--r)), #0000 25%, #000 0);
+  --_d: (var(--btn-size) + var(--r));
 
-.card.alt .image {
-  --_g: conic-gradient(from 180deg at var(--r) calc(100% - var(--r)), #0000 25%, #000 0);
+  /* Complex mask for both left and right buttons */
   mask:
-    calc(var(--_d) + var(--_x)) 100% var(--_m),
+    /* Right button masks */
+    calc(100% - var(--_d) - var(--_x-right)) 100% var(--_m),
+    100% calc(100% - var(--_d)) var(--_m),
+    radial-gradient(calc(var(--btn-size)/2) at 100% 100%, #0000 99%, #000 calc(100% + 1px))
+      calc(-1*var(--r) - var(--_x-right)) calc(-1*var(--r)),
+    var(--_g-right) calc(-1*var(--_d) - var(--_x-right)) 0,
+    var(--_g-right) 0 calc(-1*var(--_d)),
+    /* Left button masks */
+    calc(var(--_d) + var(--_x-left)) 100% var(--_m),
     0% calc(100% - var(--_d)) var(--_m),
-    radial-gradient(1.75em at 0 100%, #0000 99%, #000 calc(100% + 1px))
-      calc(var(--r) + var(--_x)) calc(-1*var(--r)),
-    var(--_g) calc(var(--_d) + var(--_x)) 0,
-    var(--_g) 0 calc(-1*var(--_d));
+    radial-gradient(calc(var(--btn-size)/2) at 0 100%, #0000 99%, #000 calc(100% + 1px))
+      calc(var(--r) + var(--_x-left)) calc(-1*var(--r)),
+    var(--_g-left) calc(var(--_d) + var(--_x-left)) 0,
+    var(--_g-left) 0 calc(-1*var(--_d));
   mask-repeat: no-repeat;
 }
 
 .caption {
-  height: 3.5em;
-  width: calc(3.5em + var(--_x));
+  height: var(--btn-size);
   box-sizing: border-box;
-  translate: calc(1.75em) calc(1.75em);
   overflow: hidden;
   background: #BF4D28;
   color: #fff;
-  padding: 0.5em 1em;
-  clip-path: inset(5px round 3em);
+  padding: 0 1.2em;
+  clip-path: inset(5px round calc(var(--btn-size)));
   display: flex;
-  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  gap: 0.2em;
-}
-
-.card.alt .caption {
-  translate: calc(-1.75em) calc(1.75em);
-}
-
-.caption h3 {
-  margin: 0;
-  font-size: 1.1em;
   font-weight: 700;
+  font-size: 1em;
   white-space: nowrap;
-  line-height: 1.2;
+  transition: width 0.5s;
+  cursor: pointer;
 }
 
-.caption p {
-  margin: 0;
-  font-size: 0.75em;
-  font-weight: 400;
-  white-space: nowrap;
-  opacity: 0.9;
-  line-height: 1.2;
+.captionLeft {
+  width: calc(var(--btn-size) + var(--_x-left));
+  translate: calc(-1 * var(--btn-size)/2) calc(var(--btn-size)/2);
+}
+
+.captionRight {
+  width: calc(var(--btn-size) + var(--_x-right));
+  translate: calc(var(--btn-size)/2) calc(var(--btn-size)/2);
+}
+
+.buttonLeft:hover ~ .image,
+.buttonLeft:hover {
+  --_x-left: 5em;
+}
+
+.buttonRight:hover ~ .image,
+.buttonRight:hover {
+  --_x-right: 5em;
 }
