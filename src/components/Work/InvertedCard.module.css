@@ -5,7 +5,7 @@
 }
 
 .card {
-  --w: 340px;
+  --w: 100%;
   --r: 0.5em;
 
   display: grid;
@@ -14,6 +14,7 @@
   cursor: pointer;
   margin: 0;
   position: relative;
+  max-width: 600px;
 }
 
 .card.alt {
@@ -62,7 +63,7 @@
   height: 3.5em;
   width: calc(3.5em + var(--_x));
   box-sizing: border-box;
-  translate: calc(1.75em - var(--r)) calc(1.75em - var(--r));
+  translate: calc(1.75em) calc(1.75em);
   overflow: hidden;
   background: #BF4D28;
   color: #fff;
@@ -75,7 +76,7 @@
 }
 
 .card.alt .caption {
-  translate: calc(-1.75em + var(--r)) calc(1.75em - var(--r));
+  translate: calc(-1.75em) calc(1.75em);
 }
 
 .caption h3 {
