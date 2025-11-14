@@ -1,11 +1,4 @@
-export interface Project {
-  name: string;
-  description: string;
-  img: string;
-  route: string;
-}
-
-export const projects: Project[] = [
+export const projects = [
   {
     name: "Silent Form",
     description: "Exploring movement against open light",
