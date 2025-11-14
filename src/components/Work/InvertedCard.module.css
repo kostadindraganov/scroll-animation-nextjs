@@ -70,7 +70,6 @@
   background: #BF4D28;
   color: #fff;
   padding: 0 1.2em;
-  clip-path: inset(5px round calc(var(--btn-size)));
   display: flex;
   align-items: center;
   justify-content: center;
@@ -79,6 +78,18 @@
   white-space: nowrap;
   transition: width 0.5s;
   cursor: pointer;
+
+  /* Inverted radius effect using mask */
+  --_corner-r: 0.4em;
+  mask:
+    radial-gradient(circle at var(--_corner-r) var(--_corner-r), transparent var(--_corner-r), #000 calc(var(--_corner-r) + 1px)) top left,
+    radial-gradient(circle at calc(100% - var(--_corner-r)) var(--_corner-r), transparent var(--_corner-r), #000 calc(var(--_corner-r) + 1px)) top right,
+    radial-gradient(circle at var(--_corner-r) calc(100% - var(--_corner-r)), transparent var(--_corner-r), #000 calc(var(--_corner-r) + 1px)) bottom left,
+    radial-gradient(circle at calc(100% - var(--_corner-r)) calc(100% - var(--_corner-r)), transparent var(--_corner-r), #000 calc(var(--_corner-r) + 1px)) bottom right,
+    linear-gradient(#000, #000);
+  mask-size: 51% 51%, 51% 51%, 51% 51%, 51% 51%, 100% 100%;
+  mask-repeat: no-repeat;
+  mask-composite: intersect;
 }
 
 .captionLeft {
